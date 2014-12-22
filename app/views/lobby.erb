@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/css/lobby.css">
+
+<div class="container">
+  <div class="gamelist">
+    <div class="row header">
+      <div class="col-md-3 col-xs-3">
+        Host
+      </div>
+      <div class="col-md-3 col-xs-3">
+        Challenger
+      </div>
+      <div class="col-md-2 col-xs-2">
+        Games Won
+      </div>
+      <div class="col-md-2 col-xs-2">
+        Games Played
+      </div>
+      <div class="col-md-2 col-xs-2">
+        Status
+      </div>
+    </div>
+
+    <%@games.each do |g|%>
+      <div class="row game_item">
+        <div class="col-md-3 col-xs-3">
+          <%=g.p1.name%>
+        </div>
+        <div class="col-md-3 col-xs-3">
+          <%if g.p2%>
+            <%=g.p2.name%>
+          <%else%>
+            <a href="/game/play/<%=g.id%>/join">Play!</a>
+          <%end%>
+        </div>
+        <div class="col-md-2 col-xs-2">
+          <%=@games.where(winner_id: g.p1.id).count%>
+        </div>
+        <div class="col-md-2 col-xs-2">
+          -
+        </div>
+        <div class="col-md-2 col-xs-2">
+          <%=g.status_to_s%>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/css/board.css">
+
+<div class="container">
+  <div class="board">
+    <div class="container-fluid">
+      <%for i in 1..3%>
+        <div class="row">
+          <%for j in 1..3%>
+            <%unless @no_moves%>
+              <%case Move.find_piece(@game.id, i, j)
+                when 0%>
+                  <%if @user.turn?(@game.id) && @game.status == 1%>
+                    <div class="box valid col-md-4 col-xs-4">
+                      <a href="/game/play/<%=@game.id%>/move?played_by=<%=@player%>&x=<%=i%>&y=<%=j%>">-</a>
+                    </div>
+                  <%else%>
+                    <div class="box col-md-4 col-xs-4">
+                    </div>
+                  <%end%>
+              <%when 1%>
+                <div class="box col-md-4 col-xs-4">
+                  <center>x</center>
+                </div>
+              <%when 2%>
+                <div class="box col-md-4 col-xs-4">
+                  <center>o</center>
+                </div>
+              <%end%>
+            <%else%> <!-- else unless -->
+              <%if @user.turn?(@game.id) && @game.status == 1%>
+                <div class="box valid col-md-4 col-xs-4">
+                  <a href="/game/play/<%=@game.id%>/move?played_by=<%=@player%>&x=<%=i%>&y=<%=j%>">-</a>
+                </div>
+              <%else%>
+                <div class="box col-md-4 col-xs-4">
+                </div>
+              <%end%>
+            <%end%> <!-- end unless -->
+          <%end%> <!-- end for j -->
+        </div>
+      <%end%> <!-- end for i -->
+    </div>
+  </div> <!-- close board -->
+</div>
